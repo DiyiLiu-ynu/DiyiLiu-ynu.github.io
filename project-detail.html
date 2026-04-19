@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>项目详情 - 刘迪一的作品集</title>
+  <style>
+    :root {
+      --bg-primary: #fafafa;
+      --bg-secondary: #ffffff;
+      --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+      --text-primary: #1a1a1a;
+      --text-secondary: #666;
+      --text-muted: #999;
+      --card-border: #f0f0f0;
+      --card-shadow: rgba(0,0,0,0.06);
+      --tag-bg: #e8e8e8;
+      --tag-text: #555;
+      --btn-bg: #1a1a1a;
+      --btn-hover: #333;
+      --toggle-bg: #e8e8e8;
+    }
+    [data-theme="dark"] {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-gradient: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+      --text-muted: #484f58;
+      --card-border: #30363d;
+      --card-shadow: rgba(0,0,0,0.3);
+      --tag-bg: #21262d;
+      --tag-text: #7ee787;
+      --btn-bg: #238636;
+      --btn-hover: #2ea043;
+      --toggle-bg: #21262d;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--toggle-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      transition: color 0.2s;
+    }
+    .back-btn:hover {
+      color: var(--text-primary);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .project-header {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--bg-gradient);
+      transition: background 0.3s;
+    }
+    .project-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .tags {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+    }
+    .section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 20px var(--card-shadow);
+      transition: all 0.3s;
+    }
+    .section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--card-border);
+    }
+    .section p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .section ul {
+      list-style: none;
+      color: var(--text-secondary);
+    }
+    .section ul li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .section ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--tag-text);
+    }
+    .contribution-item {
+      background: var(--bg-primary);
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .contribution-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .contribution-item p {
+      font-size: 0.9rem;
+    }
+    footer {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--card-border);
+    }
+    @media (max-width: 768px) {
+      .project-title {
+        font-size: 2rem;
+      }
+      .container {
+        padding: 1rem;
+      }
+      .section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">&#9790;</button>
+
+  <a href="index.html" class="back-btn">← 返回作品集</a>
+
+  <div class="project-header">
+    <div class="project-icon" id="projectIcon">📦</div>
+    <h1 class="project-title" id="projectTitle">项目名称</h1>
+    <div class="tags" id="projectTags"></div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <h2>📋 业务背景</h2>
+      <p id="projectBackground">业务背景内容...</p>
+    </div>
+
+    <div class="section">
+      <h2>🎯 项目目标</h2>
+      <p id="projectGoal">项目目标内容...</p>
+    </div>
+
+    <div class="section">
+      <h2>💻 我的贡献</h2>
+      <div id="projectContribution"></div>
+    </div>
+
+    <div class="section">
+      <h2>🛠 技术栈</h2>
+      <div class="tags" id="projectTechStack"></div>
+    </div>
+
+    <div class="section">
+      <h2>📊 项目成果</h2>
+      <p id="projectResult">项目成果内容...</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 刘迪一</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    const projects = {
+      agentfabric: {
+        title: "AgentFabric",
+        icon: "📦",
+        tags: ["多智能体", "MCP协议", "分布式系统"],
+        background: "随着企业数字化转型深入，传统单体智能体系统在扩展性、资源利用率和协作能力方面面临瓶颈。市场急需一个能够支持多个智能体高效协作、共享资源、灵活扩展的平台。AgentFabric应运而生，旨在解决多智能体系统在实际生产环境中的落地难题。",
+        goal: "构建一个基于MCP（Multi-Agent Collaboration Protocol）协议的多智能体共享服务平台，实现智能体的注册发现、通信协作、资源共享和动态调度，提升智能体系统的整体效率和可用性。",
+        contribution: [
+          { title: "架构设计", desc: "主导平台整体架构设计，采用微服务架构实现各模块解耦，设计智能体注册与发现机制" },
+          { title: "核心开发", desc: "实现基于MCP协议的消息通信框架，支持智能体间的异步协作和数据共享" },
+          { title: "调度优化", desc: "开发智能体资源调度器，实现负载均衡和动态扩缩容，提升资源利用率40%" },
+          { title: "监控运维", desc: "搭建分布式日志和监控体系，实现智能体运行状态实时追踪和异常告警" }
+        ],
+        techStack: ["Python", "gRPC", "Redis", "Docker", "Kubernetes", "Prometheus"],
+        result: "平台已接入20+业务智能体，日均处理请求超过50万次，智能体协作效率提升60%，资源成本降低35%。该平台已成为公司AI服务的基础设施，支持多个核心业务线的智能体应用。"
+      },
+      hospital: {
+        title: "患者回访客服系统",
+        icon: "🏥",
+        tags: ["医疗AI", "NLP", "智能客服"],
+        background: "某三甲医院肿瘤科每年接待患者超过10万人次，传统人工回访方式效率低、覆盖率不足30%。患者离院后的用药指导、复诊提醒、副作用跟踪等关键环节缺乏有效管理，影响治疗效果和患者满意度。",
+        goal: "建设一套智能患者回访客服系统，通过AI技术实现自动化、个性化的患者随访管理，提升回访覆盖率和患者体验，减轻医护人员工作负担。",
+        contribution: [
+          { title: "需求分析", desc: "深入肿瘤科调研，梳理20+典型随访场景，设计系统功能模块" },
+          { title: "NLP开发", desc: "基于BERT构建医学实体识别和意图分类模型，支持患者咨询的精准理解" },
+          { title: "对话系统", desc: "开发任务型对话引擎，实现复诊提醒、用药指导、副作用跟踪等核心功能" },
+          { title: "数据对接", desc: "完成与医院HIS系统对接，实现患者信息自动同步和回访记录归档" }
+        ],
+        techStack: ["Java", "Spring Boot", "BERT", "MySQL", "RabbitMQ", "Vue.js"],
+        result: "系统上线后回访覆盖率从30%提升至85%，患者满意度评分从3.2提升至4.5（满分5分），医护人员每日随访工作量减少60%，多次受到院方表扬并被列为院内标杆系统。"
+      },
+     omnigen: {
+        title: "OmniGen",
+        icon: "🎨",
+        tags: ["内容运营", "自媒体", "自动化"],
+        background: "自媒体创作者面临多平台分发、内容策划效率低、数据分析分散等挑战。手动在多个平台发布内容耗时且容易出错，缺乏统一的内容管理和效果分析工具。",
+        goal: "打造个人自媒体内容运营系统，实现多平台内容一键分发、智能策划、数据统计分析，提升内容创作和运营效率。",
+        contribution: [
+          { title: "全栈开发", desc: "独立完成系统前后端开发，前端使用React构建可视化编辑器，后端提供RESTful API" },
+          { title: "平台对接", desc: "集成微信、微博、抖音、B站等10+主流平台API，实现内容一键多平台发布" },
+          { title: "智能推荐", desc: "基于用户画像和热点分析，开发内容选题推荐功能，提升策划效率" },
+          { title: "数据分析", desc: "构建数据采集和分析体系，提供阅读量、互动率、粉丝增长等多维度报表" }
+        ],
+        techStack: ["React", "Node.js", "MongoDB", "Redis", "Docker", "ECharts"],
+        result: "系统帮助个人创作者实现多平台内容管理效率提升3倍，数据分析时间减少80%。该系统已开源并获得2000+ Star，被多个自媒体团队采用。"
+      },
+      llmtuning: {
+        title: "大模型微调强化学习",
+        icon: "🧠",
+        tags: ["LLM", "强化学习", "模型优化"],
+        background: "通用大语言模型在特定领域的任务表现往往不够理想，需要针对具体场景进行微调优化。传统微调方法如LoRA、P-tuning等在任务适配性和训练效率上存在不足。",
+        goal: "研究基于强化学习的大语言模型微调技术，探索如何让模型更好地学习人类偏好，提升模型在特定任务上的表现。",
+        contribution: [
+          { title: "算法研究", desc: "研究RLHF（Reinforcement Learning from Human Feedback）算法，提出改进方案" },
+          { title: "奖励模型", desc: "设计并训练奖励模型（Reward Model），实现人类偏好的精准建模" },
+          { title: "训练优化", desc: "优化PPO训练流程，降低训练不稳定性，缩短训练周期50%" },
+          { title: "效果评估", desc: "建立多维度评估体系，从任务完成度、安全性、流畅性等角度全面评估" }
+        ],
+        techStack: ["PyTorch", "Transformers", "RLHF", "PPO", "DeepSpeed", " wandb"],
+        result: "微调后模型在特定任务上的表现提升25%，人类评估偏好度达到78%。研究成果已发表相关论文，技术方案被应用于多个实际项目中。"
+      }
+    };
+
+    function getProjectId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('project') || 'agentfabric';
+    }
+
+    function loadProject() {
+      const projectId = getProjectId();
+      const project = projects[projectId];
+
+      if (!project) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      document.getElementById('projectIcon').textContent = project.icon;
+      document.getElementById('projectTitle').textContent = project.title;
+      document.title = project.title + ' - 刘迪一的作品集';
+
+      const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+      document.getElementById('projectTags').innerHTML = tagsHtml;
+
+      document.getElementById('projectBackground').textContent = project.background;
+      document.getElementById('projectGoal').textContent = project.goal;
+
+      const contributionHtml = project.contribution.map(item => `
+        <div class="contribution-item">
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        </div>
+      `).join('');
+      document.getElementById('projectContribution').innerHTML = contributionHtml;
+
+      const techHtml = project.techStack.map(tech => `<span class="tag">${tech}</span>`).join('');
+      document.getElementById('projectTechStack').innerHTML = techHtml;
+
+      document.getElementById('projectResult').textContent = project.result;
+    }
+
+    loadProject();
+  </script>
+
+</body>
+</html>

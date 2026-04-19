@@ -3,36 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>我的作品集</title>
+  <title>刘迪一的作品集</title>
   <style>
+    :root {
+      --bg-primary: #fafafa;
+      --bg-secondary: #ffffff;
+      --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+      --text-primary: #1a1a1a;
+      --text-secondary: #666;
+      --text-muted: #999;
+      --tag-bg: #e8e8e8;
+      --tag-text: #555;
+      --card-border: #f0f0f0;
+      --card-shadow: rgba(0,0,0,0.06);
+      --card-shadow-hover: rgba(0,0,0,0.1);
+      --btn-bg: #1a1a1a;
+      --btn-hover: #333;
+      --toggle-bg: #e8e8e8;
+      --toggle-icon: &#9790;
+      --code-prefix: '';
+      --code-suffix: '';
+    }
+    [data-theme="dark"] {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-gradient: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+      --text-primary: #c9d1d9;
+      --text-secondary: #8b949e;
+      --text-muted: #484f58;
+      --tag-bg: #21262d;
+      --tag-text: #7ee787;
+      --card-border: #30363d;
+      --card-shadow: rgba(0,0,0,0.3);
+      --card-shadow-hover: rgba(88, 166, 255, 0.1);
+      --btn-bg: #238636;
+      --btn-hover: #2ea043;
+      --toggle-bg: #21262d;
+      --toggle-icon: &#9788;
+      --code-prefix: '> ';
+      --code-suffix: '_';
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      transition: background-color 0.3s, color 0.3s;
     }
-    header {
-      background: #2c3e50;
-      color: white;
+    .theme-toggle {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--toggle-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 4rem 2rem;
+      background: var(--bg-gradient);
+      transition: background 0.3s;
     }
-    header h1 {
-      font-size: 2.5rem;
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
     }
-    header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
+    [data-theme="dark"] .hero h1::before {
+      content: "> ";
+      color: #7ee787;
+    }
+    [data-theme="dark"] .hero h1::after {
+      content: "_";
+      color: #58a6ff;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .tags {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      line-height: 1.8;
     }
     .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    [data-theme="dark"] .section-title::before {
+      content: "// ";
+      color: #8b949e;
     }
     .projects {
       display: grid;
@@ -40,95 +151,145 @@
       gap: 2rem;
     }
     .project {
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 20px var(--card-shadow);
+      transition: all 0.3s ease;
+      border: 1px solid var(--card-border);
     }
     .project:hover {
-      transform: translateY(-5px);
-    }
-    .project img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .project-content {
-      padding: 1.5rem;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px var(--card-shadow-hover);
+      border-color: #58a6ff;
     }
     .project h2 {
-      margin-bottom: 0.5rem;
       font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+    .project h2::before {
+      content: "📦 ";
+    }
+    .project:nth-child(2) h2::before {
+      content: "🏥 ";
+    }
+    .project:nth-child(3) h2::before {
+      content: "🎨 ";
+    }
+    .project:nth-child(4) h2::before {
+      content: "🧠 ";
     }
     .project p {
-      color: #666;
-      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
     }
     .btn {
       display: inline-block;
-      background: #3498db;
+      background: var(--btn-bg);
       color: white;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
       text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: 1px solid transparent;
+    }
+    [data-theme="dark"] .btn {
+      border-color: #2ea043;
+    }
+    .btn:hover {
+      background: var(--btn-hover);
     }
     footer {
       text-align: center;
-      padding: 2rem;
-      background: #ecf0f1;
-      color: #7f8c8d;
+      padding: 3rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--card-border);
+    }
+    [data-theme="dark"] footer::before {
+      content: "/* ";
+    }
+    [data-theme="dark"] footer::after {
+      content: " */";
+    }
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .projects {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 3rem 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>刘迪一的作品集</h1>
-    <p>前端开发者 · UI/UX 爱好者 · 创意实践者</p>
-  </header>
+  <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">&#9790;</button>
+
+  <section class="hero">
+    <h1>刘迪一</h1>
+    <div class="tags">
+      <span class="tag">全栈开发者</span>
+      <span class="tag">AI/ML</span>
+      <span class="tag">系统架构</span>
+    </div>
+    <p>热爱用代码创造有温度的产品，让技术服务于人。</p>
+  </section>
 
   <div class="container">
+    <h2 class="section-title">作品展示</h2>
     <div class="projects">
       <div class="project">
-        <img src="https://via.placeholder.com/600x400?text=AgentFabric" alt="AgentFabric">
-        <div class="project-content">
-          <h2>AgentFabric</h2>
-          <p>基于MCP的多智能体共享服务平台，实现智能体协作与资源高效利用。</p>
-          <a href="#" class="btn">查看详情</a>
-        </div>
+        <h2>AgentFabric</h2>
+        <p>基于MCP的多智能体共享服务平台，实现智能体协作与资源高效利用。</p>
+        <a href="project-detail.html?project=agentfabric" class="btn">查看详情</a>
       </div>
       <div class="project">
-        <img src="https://via.placeholder.com/600x400?text=医院回访系统" alt="医院回访系统">
-        <div class="project-content">
-          <h2>某三甲医院肿瘤科患者回访客服系统</h2>
-          <p>为肿瘤科患者提供智能回访服务，提升患者管理效率与随访体验。</p>
-          <a href="#" class="btn">查看详情</a>
-        </div>
+        <h2>患者回访客服系统</h2>
+        <p>某三甲医院肿瘤科患者回访客服系统，为肿瘤科患者提供智能回访服务。</p>
+        <a href="project-detail.html?project=hospital" class="btn">查看详情</a>
       </div>
       <div class="project">
-        <img src="https://via.placeholder.com/600x400?text=OmniGen" alt="OmniGen">
-        <div class="project-content">
-          <h2>OmniGen</h2>
-          <p>个人自媒体内容运营系统，助力内容创作与多平台分发管理。</p>
-          <a href="#" class="btn">查看详情</a>
-        </div>
+        <h2>OmniGen</h2>
+        <p>个人自媒体内容运营系统，助力内容创作与多平台分发管理。</p>
+        <a href="project-detail.html?project=omnigen" class="btn">查看详情</a>
       </div>
       <div class="project">
-        <img src="https://via.placeholder.com/600x400?text=大模型微调" alt="大模型微调">
-        <div class="project-content">
-          <h2>大模型微调强化学习</h2>
-          <p>基于强化学习的大语言模型微调技术研究，提升模型任务表现。</p>
-          <a href="#" class="btn">查看详情</a>
-        </div>
+        <h2>大模型微调强化学习</h2>
+        <p>基于强化学习的大语言模型微调技术研究，提升模型任务表现。</p>
+        <a href="project-detail.html?project=llmtuning" class="btn">查看详情</a>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>© 2026 刘迪一。保留所有权利。</p>
+    <p>© 2026 刘迪一</p>
   </footer>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
 
 </body>
 </html>
