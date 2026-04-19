@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的作品集</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .project {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .project:hover {
+      transform: translateY(-5px);
+    }
+    .project img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .project-content {
+      padding: 1.5rem;
+    }
+    .project h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+    }
+    .project p {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      background: #3498db;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #ecf0f1;
+      color: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>刘迪一的作品集</h1>
+    <p>前端开发者 · UI/UX 爱好者 · 创意实践者</p>
+  </header>
+
+  <div class="container">
+    <div class="projects">
+      <div class="project">
+        <img src="https://via.placeholder.com/600x400?text=AgentFabric" alt="AgentFabric">
+        <div class="project-content">
+          <h2>AgentFabric</h2>
+          <p>基于MCP的多智能体共享服务平台，实现智能体协作与资源高效利用。</p>
+          <a href="#" class="btn">查看详情</a>
+        </div>
+      </div>
+      <div class="project">
+        <img src="https://via.placeholder.com/600x400?text=医院回访系统" alt="医院回访系统">
+        <div class="project-content">
+          <h2>某三甲医院肿瘤科患者回访客服系统</h2>
+          <p>为肿瘤科患者提供智能回访服务，提升患者管理效率与随访体验。</p>
+          <a href="#" class="btn">查看详情</a>
+        </div>
+      </div>
+      <div class="project">
+        <img src="https://via.placeholder.com/600x400?text=OmniGen" alt="OmniGen">
+        <div class="project-content">
+          <h2>OmniGen</h2>
+          <p>个人自媒体内容运营系统，助力内容创作与多平台分发管理。</p>
+          <a href="#" class="btn">查看详情</a>
+        </div>
+      </div>
+      <div class="project">
+        <img src="https://via.placeholder.com/600x400?text=大模型微调" alt="大模型微调">
+        <div class="project-content">
+          <h2>大模型微调强化学习</h2>
+          <p>基于强化学习的大语言模型微调技术研究，提升模型任务表现。</p>
+          <a href="#" class="btn">查看详情</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 刘迪一。保留所有权利。</p>
+  </footer>
+
+</body>
+</html>
